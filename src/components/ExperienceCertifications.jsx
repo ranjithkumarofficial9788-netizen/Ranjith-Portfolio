@@ -1,12 +1,13 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { SiCisco, SiInfosys } from 'react-icons/si';
 import { FaMicrosoft, FaJava } from 'react-icons/fa';
-import { GiScrollUnfurled } from 'react-icons/gi';
-import { FiArrowRight, FiAward, FiBookOpen } from 'react-icons/fi';
+import { FiArrowRight, FiAward } from 'react-icons/fi';
+import TiltCard from './TiltCard';
+import TextReveal from './TextReveal';
+import Magnetic from './Magnetic';
 
-export default function ExperienceCertifications({ recruiterMode }) {
-  const shinobiLeadership = recruiterMode ? [
+export default function ExperienceCertifications() {
+  const shinobiLeadership = [
     {
       role: "Technical Team Lead",
       event: "Hackathon Project",
@@ -19,22 +20,7 @@ export default function ExperienceCertifications({ recruiterMode }) {
       event: "Kalomix-2025 // Rathinam College",
       scope: "Spearheaded management operations, coordinating across teams and organizing college events.",
       bullets: ["Event Coordination", "Team Management", "Leadership"],
-      color: "#FF6700"
-    }
-  ] : [
-    {
-      role: "Technical Team Lead",
-      event: "Hackathon Project // Chunin rank",
-      scope: "Assumed engineering director roles, aligning code frameworks and building fully functional prototypes under pressure.",
-      bullets: ["Team Leadership", "Technical Guidance", "Project Planning"],
-      color: "#00F0FF"
-    },
-    {
-      role: "Event Manager",
-      event: "Kalomix-2025 // Jonin rank",
-      scope: "Spearheaded management operations, coordinating across teams and organizing college events.",
-      bullets: ["Event Coordination", "Team Management", "Leadership"],
-      color: "#FF6700"
+      color: "#818CF8"
     }
   ];
 
@@ -66,7 +52,7 @@ export default function ExperienceCertifications({ recruiterMode }) {
   ];
 
   return (
-    <section id="experience-certifications" className={`relative py-24 border-b-3 ${recruiterMode ? 'border-slate-200' : 'border-animeOutline'}`}>
+    <section id="experience-certifications" className="relative py-24 border-b-2 border-slate-200">
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -83,15 +69,13 @@ export default function ExperienceCertifications({ recruiterMode }) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className={`text-2xl md:text-4xl font-black font-fredoka uppercase tracking-wide inline-block ${
-                  recruiterMode ? 'text-narutoOrange' : 'comic-text-stroke-orange text-narutoOrange'
-                }`}
+                className="text-2xl md:text-4xl font-black font-fredoka uppercase tracking-wide inline-block text-[#3B82F6]"
               >
-                {recruiterMode ? "Experience & Leadership" : "Shinobi Ranks (Leadership)"}
+                <TextReveal text="Experience & Leadership" />
               </motion.h2>
             </div>
 
-            <div className={`space-y-6 relative pl-4 border-l-3 ${recruiterMode ? 'border-slate-200' : 'border-inkBlack'}`}>
+            <div className="space-y-6 relative pl-4 border-l-3 border-slate-200">
               {shinobiLeadership.map((event, index) => (
                 <motion.div
                   key={index}
@@ -103,45 +87,37 @@ export default function ExperienceCertifications({ recruiterMode }) {
                 >
                   {/* Timeline bullet */}
                   <div 
-                    className={`absolute -left-[27px] top-1.5 w-4.5 h-4.5 rounded-full border-2 ${
-                      recruiterMode ? 'border-white shadow-sm' : 'border-inkBlack shadow-[1px_1px_0px_#0B0C16]'
-                    }`}
+                    className="absolute -left-[27px] top-1.5 w-4.5 h-4.5 rounded-full border-2 border-white shadow-sm"
                     style={{ backgroundColor: event.color }}
                   />
 
-                  <div className={recruiterMode ? (
-                    "bg-white border border-slate-200 rounded-2xl shadow-md p-6 text-slate-800 hover:shadow-lg transition-all"
-                  ) : (
-                    "shinobi-card p-6 bg-[#1C1E2F] border-inkBlack"
-                  )}>
-                    <span className={`font-fredoka text-[9px] font-bold uppercase tracking-wider block mb-1 ${recruiterMode ? 'text-slate-500' : 'text-mutedGray'}`}>
-                      {recruiterMode ? "LEADERSHIP & ENGAGEMENT" : "LEADERSHIP REPORT"}
-                    </span>
-                    <h3 className={`text-lg font-black font-fredoka uppercase leading-tight ${recruiterMode ? 'text-slate-800' : 'text-white'}`}>
-                      {event.role}
-                    </h3>
-                    <p className="text-xs font-fredoka font-bold text-narutoOrange">
-                      {event.event}
-                    </p>
-                    <p className={`text-xs leading-relaxed font-medium mt-2 ${recruiterMode ? 'text-slate-600' : 'text-white/70'}`}>
-                      {event.scope}
-                    </p>
+                  <TiltCard className="rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-300">
+                    <div className="p-6 text-slate-800">
+                      <span className="font-fredoka text-[9px] font-bold uppercase tracking-wider block mb-1 text-slate-500">
+                        LEADERSHIP & ENGAGEMENT
+                      </span>
+                      <h3 className="text-lg font-black font-fredoka uppercase leading-tight text-slate-800">
+                        {event.role}
+                      </h3>
+                      <p className="text-xs font-fredoka font-bold text-[#3B82F6]">
+                        {event.event}
+                      </p>
+                      <p className="text-xs leading-relaxed font-medium mt-2 text-slate-600">
+                        {event.scope}
+                      </p>
 
-                    <div className="flex flex-wrap gap-2 pt-4">
-                      {event.bullets.map((b, idx) => (
-                        <span 
-                          key={idx}
-                          className={`text-[9px] font-fredoka font-bold px-2 py-0.5 rounded ${
-                            recruiterMode 
-                              ? 'text-slate-700 bg-slate-100 border border-slate-200' 
-                              : 'text-inkBlack bg-white border border-inkBlack shadow-[1.5px_1.5px_0px_#0B0C16]'
-                          }`}
-                        >
-                          {b}
-                        </span>
-                      ))}
+                      <div className="flex flex-wrap gap-2 pt-4">
+                        {event.bullets.map((b, idx) => (
+                          <span 
+                            key={idx}
+                            className="text-[9px] font-fredoka font-bold px-2 py-0.5 rounded text-slate-700 bg-slate-100 border border-slate-200"
+                          >
+                            {b}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </TiltCard>
                 </motion.div>
               ))}
             </div>
@@ -154,11 +130,9 @@ export default function ExperienceCertifications({ recruiterMode }) {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className={`text-2xl md:text-4xl font-black font-fredoka uppercase tracking-wide inline-block ${
-                  recruiterMode ? 'text-chakraBlue' : 'comic-text-stroke-cyan text-chakraBlue'
-                }`}
+                className="text-2xl md:text-4xl font-black font-fredoka uppercase tracking-wide inline-block text-[#3B82F6]"
               >
-                {recruiterMode ? "Professional Certifications" : "Jutsu Mastery Scrolls"}
+                <TextReveal text="Professional Certifications" />
               </motion.h2>
             </div>
 
@@ -172,32 +146,27 @@ export default function ExperienceCertifications({ recruiterMode }) {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ type: 'spring', stiffness: 150, damping: 10, delay: index * 0.1 }}
-                    whileHover={{ scale: 1.03 }}
-                    className={recruiterMode ? (
-                      "bg-white border border-slate-200 rounded-2xl shadow-md p-5 flex flex-col justify-between space-y-4 hover:shadow-lg transition-all"
-                    ) : (
-                      "shinobi-card p-5 bg-[#1C1E2F] flex flex-col justify-between space-y-4 hover:border-narutoOrange shadow-[3px_3px_0px_#0B0C16]"
-                    )}
+                    className="w-full h-full"
                   >
-                    <div 
-                      className={`w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-white ${
-                        recruiterMode 
-                          ? 'border border-slate-200 shadow-sm' 
-                          : 'border-2 border-inkBlack shadow-[2px_2px_0px_#0B0C16] text-inkBlack'
-                      }`}
-                      style={{ color: cert.color }}
-                    >
-                      <CertIcon />
-                    </div>
-                    
-                    <div>
-                      <h4 className={`font-fredoka font-bold text-xs leading-tight ${recruiterMode ? 'text-slate-800' : 'text-white'}`}>
-                        {cert.name}
-                      </h4>
-                      <p className={`text-[9px] font-fredoka font-bold mt-1 uppercase tracking-wider flex items-center gap-1 ${recruiterMode ? 'text-slate-500' : 'text-mutedGray'}`}>
-                        {recruiterMode ? <FiAward className="text-narutoOrange text-sm" /> : <GiScrollUnfurled className="text-narutoOrange" />} {cert.issuer}
-                      </p>
-                    </div>
+                    <TiltCard className="rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-300">
+                      <div className="p-5 flex flex-col justify-between h-full min-h-[140px] text-slate-800">
+                        <div 
+                          className="w-10 h-10 rounded-lg flex items-center justify-center text-xl font-bold bg-white border border-slate-200 shadow-sm"
+                          style={{ color: cert.color }}
+                        >
+                          <CertIcon />
+                        </div>
+                        
+                        <div className="mt-4">
+                          <h4 className="font-fredoka font-bold text-xs leading-tight text-slate-800">
+                            {cert.name}
+                          </h4>
+                          <p className="text-[9px] font-fredoka font-bold mt-1 uppercase tracking-wider flex items-center gap-1 text-slate-500">
+                            <FiAward className="text-[#3B82F6] text-sm" /> {cert.issuer}
+                          </p>
+                        </div>
+                      </div>
+                    </TiltCard>
                   </motion.div>
                 );
               })}
@@ -211,32 +180,27 @@ export default function ExperienceCertifications({ recruiterMode }) {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className={`mt-12 p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group ${
-            recruiterMode ? 'bg-slate-50 border border-slate-200 shadow-md' : 'bg-[#1C1D38] border-[3px] border-inkBlack shadow-neoOrange'
-          }`}
+          className="mt-12 p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group bg-slate-50 border border-slate-200 shadow-md"
         >
-          {!recruiterMode && <div className="absolute inset-0 bg-leaf-grid opacity-10 pointer-events-none"></div>}
           <div className="space-y-2 z-10 text-center md:text-left">
-            <span className="font-fredoka text-xs font-bold text-narutoOrange tracking-wider uppercase block">
-              {recruiterMode ? "// INTERNSHIP STATUS" : "// CURRENT MISSION STATUS"}
+            <span className="font-fredoka text-xs font-bold text-[#3B82F6] tracking-wider uppercase block">
+              INTERNSHIP STATUS
             </span>
-            <h3 className={`text-2xl font-black font-fredoka uppercase ${recruiterMode ? 'text-slate-800' : 'text-white'}`}>
-              {recruiterMode ? "Ready for Frontend & UI/UX Internships" : "Ready for Genin & Chunin Internships"}
+            <h3 className="text-2xl font-black font-fredoka uppercase text-slate-800">
+              Ready for Frontend & UI/UX Internships
             </h3>
-            <p className={`text-sm max-w-2xl font-medium leading-relaxed ${recruiterMode ? 'text-slate-600' : 'text-white/80'}`}>
+            <p className="text-sm max-w-2xl font-medium leading-relaxed text-slate-600">
               Seeking Frontend Developer or UI/UX Design internships where I can apply my React, Figma, and design thinking skills to craft intuitive, user-centered digital interfaces.
             </p>
           </div>
-          <button
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className={recruiterMode ? (
-              "px-6 py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-fredoka font-bold text-xs uppercase tracking-wider rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap z-10"
-            ) : (
-              "shinobi-btn shinobi-btn-orange text-xs font-black flex items-center gap-2 whitespace-nowrap z-10 text-white"
-            )}
-          >
-            {recruiterMode ? "Get in Touch" : "Assign Mission"} <FiArrowRight className="text-base" />
-          </button>
+          <Magnetic>
+            <button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-6 py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-fredoka font-bold text-xs uppercase tracking-wider rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2 whitespace-nowrap z-10"
+            >
+              Get in Touch <FiArrowRight className="text-base" />
+            </button>
+          </Magnetic>
         </motion.div>
       </motion.div>
     </section>

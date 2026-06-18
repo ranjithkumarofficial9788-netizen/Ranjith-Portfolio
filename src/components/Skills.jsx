@@ -1,11 +1,11 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { SiHtml5, SiReact, SiFigma, SiLinux, SiGithub, SiGit } from 'react-icons/si';
+import { SiHtml5, SiReact, SiFigma, SiLinux, SiGithub } from 'react-icons/si';
 import { FaCss3Alt, FaWindows } from 'react-icons/fa';
 import { FiCpu, FiSliders, FiUsers, FiMessageSquare, FiCompass, FiCode } from 'react-icons/fi';
-import { GiShuriken } from 'react-icons/gi';
+import TiltCard from './TiltCard';
+import TextReveal from './TextReveal';
 
-export default function Skills({ recruiterMode }) {
+export default function Skills() {
   const kekkeiGenkai = [
     { name: 'HTML5', icon: SiHtml5, color: '#e34f26' },
     { name: 'CSS3', icon: FaCss3Alt, color: '#1572b6' },
@@ -44,7 +44,7 @@ export default function Skills({ recruiterMode }) {
   };
 
   return (
-    <section id="skills" className={`relative py-24 border-b-3 ${recruiterMode ? 'border-slate-200' : 'border-animeOutline'}`}>
+    <section id="skills" className="relative py-24 border-b-2 border-slate-200">
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -59,11 +59,9 @@ export default function Skills({ recruiterMode }) {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className={`text-3xl md:text-5xl font-black font-fredoka uppercase tracking-wide inline-block ${
-              recruiterMode ? 'text-[#3B82F6]' : 'comic-text-stroke-cyan text-chakraBlue'
-            }`}
+            className="text-3xl md:text-5xl font-black font-fredoka uppercase tracking-wide inline-block text-[#3B82F6]"
           >
-            {recruiterMode ? "Skills & Expertise" : "Chakra Natures & Jutsu"}
+            <TextReveal text="Skills & Expertise" />
           </motion.h2>
         </div>
 
@@ -76,62 +74,43 @@ export default function Skills({ recruiterMode }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={recruiterMode ? (
-              "bg-white border border-slate-200 rounded-2xl shadow-md text-slate-800 p-6 relative overflow-hidden group hover:shadow-lg transition-all"
-            ) : (
-              "shinobi-card p-6 border-inkBlack bg-[#1C1E2F] hover:shadow-neoOrange relative overflow-hidden group"
-            )}
+            className="w-full h-full"
           >
-            {/* Smoke shockwave - only in shinobi mode */}
-            {!recruiterMode && (
-              <motion.div 
-                className="absolute inset-0 bg-white/10 rounded-2xl pointer-events-none mix-blend-screen filter blur-md"
-                initial={{ scale: 0.1, opacity: 0 }}
-                whileHover={{ scale: 1.3, opacity: [0, 0.7, 0] }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-              />
-            )}
-            <h3 className={`font-fredoka font-black text-lg uppercase tracking-wider mb-6 pb-2 border-b-2 flex items-center justify-between ${
-              recruiterMode ? 'text-slate-800 border-slate-100' : 'text-narutoOrange border-inkBlack'
-            }`}>
-              <span className="flex items-center gap-1.5">
-                {recruiterMode ? <FiCode className="text-sm text-[#3B82F6]" /> : <GiShuriken className="animate-spin-fast text-sm" />} 
-                {recruiterMode ? "Technical Skills" : "Kekkei Genkai"}
-              </span>
-              <span className={`text-[10px] border px-2.5 py-0.5 rounded font-bold ${
-                recruiterMode 
-                  ? 'bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6]' 
-                  : 'bg-narutoOrange/15 border-narutoOrange text-narutoOrange'
-              }`}>
-                {recruiterMode ? "FRONTEND & UI" : "FIRE_STYLE"}
-              </span>
-            </h3>
+            <TiltCard className="rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="p-6 relative overflow-hidden group text-slate-800">
+                <h3 className="font-fredoka font-black text-lg uppercase tracking-wider mb-6 pb-2 border-b-2 flex items-center justify-between text-slate-800 border-slate-100">
+                  <span className="flex items-center gap-1.5">
+                    <FiCode className="text-sm text-[#3B82F6]" />
+                    Technical Skills
+                  </span>
+                  <span className="text-[10px] border px-2.5 py-0.5 rounded font-bold bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6]">
+                    FRONTEND & UI
+                  </span>
+                </h3>
 
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="flex flex-wrap gap-3"
-            >
-              {kekkeiGenkai.map((skill) => {
-                const Icon = skill.icon;
-                return (
-                  <motion.div 
-                    variants={itemVariants}
-                    key={skill.name}
-                    className={recruiterMode ? (
-                      "flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-slate-700 bg-slate-50/50 hover:bg-slate-50 hover:border-[#3B82F6] transition-colors cursor-pointer text-xs font-fredoka font-semibold shadow-sm"
-                    ) : (
-                      "chakra-badge flex items-center gap-2 cursor-pointer"
-                    )}
-                  >
-                    <Icon style={{ color: skill.color }} />
-                    <span>{skill.name}</span>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                <motion.div 
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="flex flex-wrap gap-3"
+                >
+                  {kekkeiGenkai.map((skill) => {
+                    const Icon = skill.icon;
+                    return (
+                      <motion.div 
+                        variants={itemVariants}
+                        key={skill.name}
+                        className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-slate-700 bg-slate-50/50 hover:bg-slate-50 hover:border-[#3B82F6] transition-colors cursor-pointer text-xs font-fredoka font-semibold shadow-sm"
+                      >
+                        <Icon style={{ color: skill.color }} />
+                        <span>{skill.name}</span>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+              </div>
+            </TiltCard>
           </motion.div>
 
           {/* Wind Style Card */}
@@ -140,62 +119,43 @@ export default function Skills({ recruiterMode }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className={recruiterMode ? (
-              "bg-white border border-slate-200 rounded-2xl shadow-md text-slate-800 p-6 relative overflow-hidden group hover:shadow-lg transition-all"
-            ) : (
-              "shinobi-card shinobi-card-cyan p-6 border-inkBlack bg-[#1C1E2F] relative overflow-hidden group"
-            )}
+            className="w-full h-full"
           >
-            {/* Smoke shockwave - only in shinobi mode */}
-            {!recruiterMode && (
-              <motion.div 
-                className="absolute inset-0 bg-white/10 rounded-2xl pointer-events-none mix-blend-screen filter blur-md"
-                initial={{ scale: 0.1, opacity: 0 }}
-                whileHover={{ scale: 1.3, opacity: [0, 0.7, 0] }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-              />
-            )}
-            <h3 className={`font-fredoka font-black text-lg uppercase tracking-wider mb-6 pb-2 border-b-2 flex items-center justify-between ${
-              recruiterMode ? 'text-slate-800 border-slate-100' : 'text-chakraBlue border-inkBlack'
-            }`}>
-              <span className="flex items-center gap-1.5">
-                {recruiterMode ? <FiCpu className="text-sm text-[#3B82F6]" /> : <GiShuriken className="animate-spin-fast text-sm" />} 
-                {recruiterMode ? "Platforms & Tools" : "Ninja Tools"}
-              </span>
-              <span className={`text-[10px] border px-2.5 py-0.5 rounded font-bold ${
-                recruiterMode 
-                  ? 'bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6]' 
-                  : 'bg-chakraBlue/15 border border-chakraBlue text-chakraBlue'
-              }`}>
-                {recruiterMode ? "DEVELOPMENT" : "WIND_STYLE"}
-              </span>
-            </h3>
+            <TiltCard className="rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="p-6 relative overflow-hidden group text-slate-800">
+                <h3 className="font-fredoka font-black text-lg uppercase tracking-wider mb-6 pb-2 border-b-2 flex items-center justify-between text-slate-800 border-slate-100">
+                  <span className="flex items-center gap-1.5">
+                    <FiCpu className="text-sm text-[#3B82F6]" />
+                    Platforms & Tools
+                  </span>
+                  <span className="text-[10px] border px-2.5 py-0.5 rounded font-bold bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6]">
+                    DEVELOPMENT
+                  </span>
+                </h3>
 
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="flex flex-wrap gap-3"
-            >
-              {ninjaTools.map((skill) => {
-                const Icon = skill.icon;
-                return (
-                  <motion.div 
-                    variants={itemVariants}
-                    key={skill.name}
-                    className={recruiterMode ? (
-                      "flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-slate-700 bg-slate-50/50 hover:bg-slate-50 hover:border-[#3B82F6] transition-colors cursor-pointer text-xs font-fredoka font-semibold shadow-sm"
-                    ) : (
-                      "chakra-badge chakra-badge-cyan flex items-center gap-2 cursor-pointer"
-                    )}
-                  >
-                    <Icon style={{ color: skill.color }} />
-                    <span>{skill.name}</span>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                <motion.div 
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="flex flex-wrap gap-3"
+                >
+                  {ninjaTools.map((skill) => {
+                    const Icon = skill.icon;
+                    return (
+                      <motion.div 
+                        variants={itemVariants}
+                        key={skill.name}
+                        className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-slate-700 bg-slate-50/50 hover:bg-slate-50 hover:border-[#3B82F6] transition-colors cursor-pointer text-xs font-fredoka font-semibold shadow-sm"
+                      >
+                        <Icon style={{ color: skill.color }} />
+                        <span>{skill.name}</span>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+              </div>
+            </TiltCard>
           </motion.div>
 
           {/* Lightning Style Card */}
@@ -204,62 +164,43 @@ export default function Skills({ recruiterMode }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className={recruiterMode ? (
-              "bg-white border border-slate-200 rounded-2xl shadow-md text-slate-800 p-6 relative overflow-hidden group hover:shadow-lg transition-all"
-            ) : (
-              "shinobi-card shinobi-card-green p-6 border-inkBlack bg-[#1C1E2F] relative overflow-hidden group"
-            )}
+            className="w-full h-full"
           >
-            {/* Smoke shockwave - only in shinobi mode */}
-            {!recruiterMode && (
-              <motion.div 
-                className="absolute inset-0 bg-white/10 rounded-2xl pointer-events-none mix-blend-screen filter blur-md"
-                initial={{ scale: 0.1, opacity: 0 }}
-                whileHover={{ scale: 1.3, opacity: [0, 0.7, 0] }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-              />
-            )}
-            <h3 className={`font-fredoka font-black text-lg uppercase tracking-wider mb-6 pb-2 border-b-2 flex items-center justify-between ${
-              recruiterMode ? 'text-slate-800 border-slate-100' : 'text-shinobiGreen border-inkBlack'
-            }`}>
-              <span className="flex items-center gap-1.5">
-                {recruiterMode ? <FiUsers className="text-sm text-[#3B82F6]" /> : <GiShuriken className="animate-spin-fast text-sm" />} 
-                {recruiterMode ? "Tactical & Soft Skills" : "Tactical skills"}
-              </span>
-              <span className={`text-[10px] border px-2.5 py-0.5 rounded font-bold ${
-                recruiterMode 
-                  ? 'bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6]' 
-                  : 'bg-shinobiGreen/15 border border-shinobiGreen text-shinobiGreen'
-              }`}>
-                {recruiterMode ? "INTERPERSONAL" : "LIGHTNING"}
-              </span>
-            </h3>
+            <TiltCard className="rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="p-6 relative overflow-hidden group text-slate-800">
+                <h3 className="font-fredoka font-black text-lg uppercase tracking-wider mb-6 pb-2 border-b-2 flex items-center justify-between text-slate-800 border-slate-100">
+                  <span className="flex items-center gap-1.5">
+                    <FiUsers className="text-sm text-[#3B82F6]" />
+                    Tactical & Soft Skills
+                  </span>
+                  <span className="text-[10px] border px-2.5 py-0.5 rounded font-bold bg-[#3B82F6]/10 border-[#3B82F6]/30 text-[#3B82F6]">
+                    INTERPERSONAL
+                  </span>
+                </h3>
 
-            <motion.div 
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              className="flex flex-wrap gap-3"
-            >
-              {tacticalSkills.map((skill) => {
-                const Icon = skill.icon;
-                return (
-                  <motion.div 
-                    variants={itemVariants}
-                    key={skill.name}
-                    className={recruiterMode ? (
-                      "flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-slate-700 bg-slate-50/50 hover:bg-slate-50 hover:border-[#3B82F6] transition-colors cursor-pointer text-xs font-fredoka font-semibold shadow-sm"
-                    ) : (
-                      "chakra-badge chakra-badge-green flex items-center gap-2 cursor-pointer"
-                    )}
-                  >
-                    <Icon style={{ color: skill.color }} />
-                    <span>{skill.name}</span>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                <motion.div 
+                  variants={containerVariants}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true }}
+                  className="flex flex-wrap gap-3"
+                >
+                  {tacticalSkills.map((skill) => {
+                    const Icon = skill.icon;
+                    return (
+                      <motion.div 
+                        variants={itemVariants}
+                        key={skill.name}
+                        className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-full text-slate-700 bg-slate-50/50 hover:bg-slate-50 hover:border-[#3B82F6] transition-colors cursor-pointer text-xs font-fredoka font-semibold shadow-sm"
+                      >
+                        <Icon style={{ color: skill.color }} />
+                        <span>{skill.name}</span>
+                      </motion.div>
+                    );
+                  })}
+                </motion.div>
+              </div>
+            </TiltCard>
           </motion.div>
 
         </div>
